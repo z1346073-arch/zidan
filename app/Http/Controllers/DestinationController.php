@@ -10,12 +10,13 @@ class DestinationController extends Controller
     public function index(Request $request){
 
     $keyword = $request->input('search');
+    
     if ($keyword !=''){
         $destinations = Destination::where('name','LIKE', '%' . $keyword . '%')->paginate(5);
     }else {
         $destinations = Destination::orderby('id')->paginate(5);
     }
-    return view('pages.indexDestinations', compact('destinations'));
+    return view('pages.indexDestinasi', compact('destinations'));
     
     
     }
@@ -23,7 +24,7 @@ class DestinationController extends Controller
     public function show($id)
     {
         
-        $destinations = Destinations::findOrFail($id);
+        $destinations = Destination::findOrFail($id);
         return view('pages.detaildestinasi', compact('destinations'));
     }
 
@@ -40,13 +41,13 @@ class DestinationController extends Controller
             'location' => 'required',
         ]);
 
-        Destinations::create($request->all());
+        Destination::create($request->all());
         return redirect('/destinations')->with('success', 'Destination created successfully.');
     }
 
     public function delete($id)
     {
-        $destination = Destinations::findOrFail($id);
+        $destination = Destination::findOrFail($id);
         $destination->delete();
         return redirect('/destinations')->with('success', 'Destination deleted successfully.'); 
     }
@@ -54,14 +55,15 @@ class DestinationController extends Controller
     public function edit($id)
     {
     
-        $destination = Destinations::findOrFail($id);
+        $destination = Destination::findOrFail($id);
+    
         return view('pages.editDestination', compact('destination'));
     }
 
     public function update(Request $request, $id)
     {
       
-        $destination = Destinations::find($id);
+        $destination = Destination::find($id);
 
         if ($destination) {
             $destination->update($request->all());
@@ -73,3 +75,10 @@ class DestinationController extends Controller
         }
     }
 }
+
+
+
+
+
+
+

@@ -7,4 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Destination extends Model
 {
     protected $table = "destination";
+    protected $fillable = [
+        'name',
+        'description',
+        'location',
+        'working_day',
+        'working_hours',
+        'ticket_price',
+    ];
 }

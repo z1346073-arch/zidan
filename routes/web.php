@@ -1,12 +1,14 @@
 <?php
-    
+
+use App\Http\Controllers\DestinationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Destination;
+use App\Http\Controllers\UserController;
 
-// Route::get(uri:'/', function () {
-//     return view( view: 'welcome');
-// });
+Route::get('/', function () {
+    return view( view: 'welcome');
+});
 Route::get( uri: "/halo",  action: function() {
     $name = "Rozi";
     $hobis = ["Membaca", "Menulis", "Coding"];
@@ -45,17 +47,12 @@ Route::get(uri: "/destination", action: function () {
 });
 
 
-Route::get( uri: "/user ", action: function () {
-    $users = User::where('name', 'Zidan')->get();
-    return view( view: 'pages.profile', data: compact('users'));
-});
+// Route::get( uri: "/user ", action: function () {
+//     $users = User::where('name', 'Zidan')->get();
+//     return view( view: 'pages.profile', data: compact('users'));
+// });
 
-Route::get( uri: "/destinations ", action: function () {
-
-    $destinations = Destination::all();
-  
-    return view( view: 'pages.indexDestinasi', data: compact('destinations'));
-});
+Route::get( uri: "/destinations ", action: [DestinationController::class, 'index']);
 
 Route::get( uri: "/detaildestinations/{id} ", action: function ($id) {
 
@@ -69,3 +66,14 @@ Route::post("/destinations", [DestinationController::class, 'store']);
 Route::get("/destinations/{id}/edit", [DestinationController::class, 'edit']);
 Route::put("/destinations/{id}/update", [DestinationController::class, 'update']);
 Route::delete('/destinations/{id}', [DestinationController::class, 'delete']);
+
+
+Route::get("/users", [UserController::class, 'index']);
+// Route::get("/users/{id}", [UserController::class, 'show']);
+Route::get("/users/create", [UserController::class, 'create']);
+Route::post("/users", [UserController::class, 'store']);
+Route::get("/users/{id}/edit", [UserController::class, 'edit']);
+Route::put("/users/{id}/update", [UserController::class, 'update']);
+Route::delete('/users/{id}', [UserController::class, 'delete']);
+
+ 
