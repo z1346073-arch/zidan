@@ -3,6 +3,13 @@
 @section('content')
     <form action="/destinations" method="post" class="form-floating">
     @csrf
+    <form action="/categories/store" method="post">
+    @csrf <label>Nama Kategori</label>
+    <input type="text" name="name" required>
+
+    <button type="submit">Simpan</button>
+</form>
+
     <div class="form-floating mb-3">
         <input type="text" class="form-control" id="floatingInput" placeholder="Asia Heritage" name="name">
         <label for="floatingInput">Nama Destinasi</label>

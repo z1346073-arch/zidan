@@ -3,10 +3,17 @@
 @section('content')
     <form action="/destinations/{{ $destination->id }}/update" method="post" class="form-floating">
     @csrf
+    <form action="/categories/{{ $category->id }}/update" method="post">
+    @csrf <label>Nama Kategori</label>
+    <input type="text" name="name" value="{{ $category->name }}" required>
+
+    <button type="submit">Update</button>
+</form>
+
     @method("put")
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Asia Heritage" name="name" value="{{ $destination->name }}">
-        <label for="floatingInput">Nama Destinasi</label>
+        <input type="text" class="form-control" id="floatingInput" placeholder="Asia Heritage" name="name" value="{{ $category->name }}">
+        <label for="floatingInput">Nama Kategori</label>
     </div>
     <div class="form-floating">
         <textarea name="description" id="" class="form-control" placeholder="Description">{{ $destination->description }}</textarea>
