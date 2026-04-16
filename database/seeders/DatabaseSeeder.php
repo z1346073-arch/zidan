@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attraction;
 use App\Models\User;
+use Dom\Attr;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,8 +24,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'z1343',
         ]);
         $this->call([
-           
-            UserSeeder::class
+           DestinationSeeder::class,
+            UserSeeder::class,
+            
         ]);
     }
 }

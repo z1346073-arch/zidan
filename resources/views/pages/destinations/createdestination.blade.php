@@ -1,39 +1,83 @@
 @extends('master')
 
 @section('content')
-    <form action="/destinations" method="post" class="form-floating">
-    @csrf
-    <form action="/categories/store" method="post">
-    @csrf <label>Nama Kategori</label>
-    <input type="text" name="name" required>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Create Destination</h3>
+                </div>
+                <div class="card-body">
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-    <button type="submit">Simpan</button>
-</form>
+                    <form action="{{ route('destinations.store') }}" method="POST">
+                        @csrf
+                        
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Asia Heritage" name="name" value="{{ old('name') }}" required>
+                            <label for="floatingInput">Nama Destinasi</label>
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Asia Heritage" name="name">
-        <label for="floatingInput">Nama Destinasi</label>
+                        <div class="form-floating mb-3">
+                            <textarea name="description" class="form-control" id="floatingDescription" placeholder="Description" style="height: 100px;">{{ old('description') }}</textarea>
+                            <label for="floatingDescription">Deskripsi</label>
+                            @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingLocation" placeholder="Pekanbaru" name="location" value="{{ old('location') }}" required>
+                            <label for="floatingLocation">Lokasi</label>
+                            @error('location')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingPrice" placeholder="100000" name="ticket_price" value="{{ old('ticket_price') }}">
+                            <label for="floatingPrice">Harga Tiket</label>
+                            @error('ticket_price')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingHours" placeholder="08.00 - 17.00" name="working_hours" value="{{ old('working_hours') }}">
+                            <label for="floatingHours">Jam Operasional</label>
+                            @error('working_hours')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingDay" placeholder="Senin - Minggu" name="working_day" value="{{ old('working_day') }}">
+                            <label for="floatingDay">Hari Operasional</label>
+                            @error('working_day')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="{{ route('destinations.index') }}" class="btn btn-secondary">Batal</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-floating">
-        <textarea name="description" id="" class="form-control" placeholder="Description"></textarea>
-        <label for="description">Description</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Pekanbaru" name="location">
-        <label for="floatingInput">Lokasi</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="floatingInput" placeholder="100000" name="ticket_price">
-        <label for="floatingInput">Harga Tiket</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="08.00 - 17.00" name="working_hours">
-        <label for="floatingInput">Jam Operasional</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Senin - Minggu" name="working_day">
-        <label for="floatingInput">Hari Operasional</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
 @endsection

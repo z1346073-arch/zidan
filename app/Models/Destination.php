@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends Model
 {
-    protected $table = "destination";
+    protected $table = 'destinations';
+
     protected $fillable = [
         'name',
         'description',
@@ -15,4 +16,21 @@ class Destination extends Model
         'working_hours',
         'ticket_price',
     ];
+
+    protected $casts = [
+        'ticket_price' => 'integer',
+    ];
+
+    public function attractions()
+    {
+        return $this->hasMany(Attraction::class);
+    }
+
+
+
+
 }
+
+
+
+

@@ -66,8 +66,9 @@ Route::get(uri: "/detaildestinations/{id}", action: function ($id) {
 
 Route::prefix('destinations')->name('destinations.')->group(function () {
     Route::get("/", [DestinationController::class, 'index'])->name('index');
-    Route::get("/{id}", [DestinationController::class, 'show'])->name('show');
     Route::get("/create", [DestinationController::class, 'create'])->name('create');
+    Route::get("/{id}", [DestinationController::class, 'show'])->name('show');
+    
     Route::post("/", [DestinationController::class, 'store'])->name('store');
     Route::get("/{id}/edit", [DestinationController::class, 'edit'])->name('edit');
     Route::put("/{id}/update", [DestinationController::class, 'update'])->name('update');
