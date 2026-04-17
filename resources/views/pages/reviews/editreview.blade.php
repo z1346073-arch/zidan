@@ -22,41 +22,41 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Edit Attraction</h3>
+                    <h3>Edit Review</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('attractions.update', $attraction->id) }}" method="POST">
+                    <form action="{{ route('reviews.update', $review->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
-                        <!-- Destination -->
+                        <!-- Attraction -->
             <div class="form-group">
-                <label for="destination_id">Pilih Destinasi <span style="color: var(--danger);">*</span></label>
+                <label for="attraction_id">Pilih Attraction <span style="color: var(--danger);">*</span></label>
                 <select 
-                    id="destination_id" 
-                    name="destination_id" 
-                    class="form-control @error('destination_id') is-invalid @enderror"
+                    id="attraction_id" 
+                    name="attraction_id" 
+                    class="form-control @error('attraction_id') is-invalid @enderror"
                     required
                 >
-                    <option value="">-- Pilih Destinasi --</option>
-                    @foreach ($destinations as $destination)
+                    <option value="">-- Pilih Attraction --</option>
+                    @foreach ($attractions as $attraction)
                         <option 
-                            value="{{ $destination->id }}" 
-                            {{ old('destination_id') || $attraction->destination_id == $destination->id ? 'selected' : '' }}
+                            value="{{ $attraction->id }}" 
+                            {{ old('attraction_id', $review->attraction_id) == $attraction->id ? 'selected' : '' }}
                         >
-                            {{ $destination->name }}
+                            {{ $attraction->name }}
                         </option>
                     @endforeach
                 </select>
-                @error('destination_id')
+                @error('attraction_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
                         
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="FloatingInputName" placeholder="Attraction Name" name="name" required value="{{ old('name', $attraction->name) }}">
-                            <label for="FloatingInputName">Nama Attraction</label>
-                            @error('name')
+                            <input type="text" class="form-control" id="FloatingInputReviewerName" placeholder="Reviewer Name" name="reviewer_name" required value="{{ old('reviewer_name', $review->reviewer_name) }}">
+                            <label for="FloatingInputReviewerName">Nama Reviewer</label>
+                            @error('reviewer_name')
                                 <div class="text-danger">{{ $message }}</div>
 
                             @enderror
@@ -64,9 +64,9 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <textarea class="form-control" id="FloatingInputDescription" placeholder="Description" name="description" required>{{ old('description', $attraction->description) }}</textarea>
-                            <label for="FloatingInputDescription">Deskripsi</label>
-                            @error('description')
+                            <textarea class="form-control" id="FloatingInputComment" placeholder="Comment" name="comment" required>{{ old('comment', $review->comment) }}</textarea>
+                            <label for="FloatingInputComment">Komentar</label>
+                            @error('comment')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
 
@@ -74,7 +74,7 @@
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">Update</button>
-                            <a href="{{ route('attractions.index') }}" class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('reviews.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -82,7 +82,4 @@
         </div>
     </div>
 </div>
-@endsection     
-
-
-
+@endsection    

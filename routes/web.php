@@ -102,3 +102,11 @@ Route::prefix("/attractions")->name('attractions.')->group(function () {
     Route::get('/users/export', [AttractionController::class, 'export'])->name('users.export');
     Route::get('/users/search', [AttractionController::class, 'search'])->name('users.search');
 });
+
+Route::resource( name: 'attractions', controller: \App\Http\Controllers\AttractionController::class);
+
+Route::resource(name: 'reviews', controller: \App\Http\Controllers\ReviewController::class);
+
+return view('reviews.createreview', compact('attractions'));
+
+

@@ -10,22 +10,31 @@
             @endforeach
         </ul>
     </div>
-
-        
     @endif
 
+    <form action="{{ route{'destinations.update', $destination->id) }}"method="POST" class="form-floating">
+    enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+
+    <div class="form-floating mb-3">
+        <input type="file" class="form-control" id="floatingInput" placeholder="image" name="image" value="{{ old('image', $destination->image) }}" accept=".jpg,.jpeg,.png">
+        <label for="floatingInput">Gambar Destinasi</label>
+        @error('image')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    
 
 
 
     <form action="/destinations/{{ $destination->id }}/update" method="post" class="form-floating">
     @csrf 
-    
-
-
     @method("put")
+
+
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Asia Heritage" name="name"required value="{{ old('name', $destination->name) }}">
-        <label for="floatingInput">Nama Destinasi</label>
+        <input type="text" class="form-control" id="floatingInput" placeholder="Asia Heritage" name="name"required value="{{ $destination->name}}" required>        <label for="floatingInput">Nama Destinasi</label>
         @error('name')
             <div class="text-danger">{{ $message }}</div>
         @enderror

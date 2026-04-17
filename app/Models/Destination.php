@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends Model
 {
-    protected $table = 'destinations';
+    //protected $table = 'destinations';
 
     protected $fillable = [
         'name',
@@ -15,6 +15,7 @@ class Destination extends Model
         'working_day',
         'working_hours',
         'ticket_price',
+        'image',
     ];
 
     protected $casts = [
@@ -25,12 +26,7 @@ class Destination extends Model
     {
         return $this->hasMany(Attraction::class);
     }
-
-
-
-
 }
-
 
 
 

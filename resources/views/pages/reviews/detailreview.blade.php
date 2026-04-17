@@ -156,8 +156,8 @@
 </style>
 
 <div class="attraction-header">
-    <h1>{{ $attraction->name }}</h1>
-    <p>📍 Detail informasi attraction wisata</p>
+    <h1>Review - {{ $review->reviewer_name }}</h1>
+    <p>⭐ Detail informasi review wisata</p>
 </div>
 
 <div style="max-width: 800px; margin: 0 auto;">
@@ -166,13 +166,13 @@
         <div class="card-body">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div>
-                    <h6 style="color: #ffffff; font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem;">Nama Attraction</h6>
-                    <p style="font-size: 1.3rem; color: #ffffff; margin: 0; font-weight: 700;">{{ $attraction->name }}</p>
+                    <h6 style="color: #ffffff; font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem;">Nama Reviewer</h6>
+                    <p style="font-size: 1.3rem; color: #ffffff; margin: 0; font-weight: 700;">{{ $review->reviewer_name }}</p>
                 </div>
-                @if($attraction->destination)
+                @if($review->attraction)
                 <div>
-                    <h6 style="color: #ffffff; font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem;">Destinasi</h6>
-                    <p style="font-size: 1.3rem; color: #ffffff; margin: 0; font-weight: 700;">{{ $attraction->destination->name }}</p>
+                    <h6 style="color: #ffffff; font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem;">Attraction</h6>
+                    <p style="font-size: 1.3rem; color: #ffffff; margin: 0; font-weight: 700;">{{ $review->attraction->name }}</p>
                 </div>
                 @endif
             </div>
@@ -183,43 +183,43 @@
     <div class="card detail-card" style="margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-header-custom" style="color: #ffffff; font-size: 1.6rem;">
-                📋 Detail Informasi
+                📋 Detail Review
             </div>
 
             <div class="detail-row">
                 <div class="detail-label">ID</div>
-                <div class="detail-value"><span class="id-badge">{{ $attraction->id }}</span></div>
+                <div class="detail-value"><span class="id-badge">{{ $review->id }}</span></div>
             </div>
 
             <div class="detail-row">
-                <div class="detail-label">🎯 Nama</div>
+                <div class="detail-label">👤 Nama Reviewer</div>
                 <div class="detail-value">
-                    <strong>{{ $attraction->name }}</strong>
+                    <strong>{{ $review->reviewer_name }}</strong>
                 </div>
             </div>
 
-            @if($attraction->destination)
+            @if($review->attraction)
                 <div class="detail-row">
-                    <div class="detail-label">📍 Destinasi</div>
+                    <div class="detail-label">🎯 Attraction</div>
                     <div class="detail-value">
-                        <strong>{{ $attraction->destination->name }}</strong>
+                        <strong>{{ $review->attraction->name }}</strong>
                     </div>
                 </div>
             @endif
 
-        <!-- Deskripsi -->
-        @if($attraction->description)
+        <!-- Komentar -->
+        @if($review->comment)
             <div class="detail-row">
-                <div class="detail-label">📝 Deskripsi</div>
+                <div class="detail-label">💬 Komentar</div>
                 <div class="detail-value" style="text-align: left;">
-                    <p style="margin: 0; line-height: 1.8; color: #ffffff; font-size: 1.1rem; font-weight: 500;">{{ $attraction->description }}</p>
+                    <p style="margin: 0; line-height: 1.8; color: #ffffff; font-size: 1.1rem; font-weight: 500;">{{ $review->comment }}</p>
                 </div>
             </div>
         @else
             <div class="detail-row">
-                <div class="detail-label">📝 Deskripsi</div>
+                <div class="detail-label">💬 Komentar</div>
                 <div class="detail-value" style="color: #ffffff; font-size: 1.1rem;">
-                    <em>Tidak ada deskripsi</em>
+                    <em>Tidak ada komentar</em>
                 </div>
             </div>
         @endif
@@ -229,7 +229,7 @@
             <div class="detail-label">✨ Dibuat</div>
             <div class="detail-value">
                 <span style="background: #0066cc; color: #ffffff; padding: 0.5rem 1rem; border-radius: 6px; font-size: 1rem; font-weight: 600;">
-                    {{ $attraction->created_at ? $attraction->created_at->format('d M Y H:i') : '-' }}
+                    {{ $review->created_at ? $review->created_at->format('d M Y H:i') : '-' }}
                 </span>
             </div>
         </div>
@@ -239,7 +239,7 @@
             <div class="detail-label">🔄 Diperbarui</div>
             <div class="detail-value">
                 <span style="background: #ff9900; color: #ffffff; padding: 0.5rem 1rem; border-radius: 6px; font-size: 1rem; font-weight: 600;">
-                    {{ $attraction->updated_at ? $attraction->updated_at->format('d M Y H:i') : '-' }}
+                    {{ $review->updated_at ? $review->updated_at->format('d M Y H:i') : '-' }}
                 </span>
             </div>
         </div>
@@ -252,15 +252,15 @@
     <div style="background: #f8f9fa; padding: 2rem; border-radius: 12px; margin-top: 2rem;">
         <h6 style="color: #ffffff; font-weight: 700; margin-bottom: 1.5rem; font-size: 1.2rem;">⚙️ Aksi</h6>
         <div class="action-buttons">
-                <a href="{{ route('attractions.index') }}" class="btn btn-ghost">
+            <a href="{{ route('reviews.index') }}" class="btn btn-ghost">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 Kembali ke Daftar
             </a>
-            <a href="{{ route('attractions.edit', $attraction->id) }}" class="btn btn-warning">
+            <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn-warning">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 Edit Data
             </a>
-            <form action="{{ route('attractions.delete', $attraction->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('⚠️ Yakin ingin menghapus &quot;{{ $attraction->name }}&quot;? Tindakan ini tidak bisa dibatalkan.')">
+            <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('⚠️ Yakin ingin menghapus review dari &quot;{{ $review->reviewer_name }}&quot;? Tindakan ini tidak bisa dibatalkan.')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">
@@ -273,29 +273,4 @@
 </div>
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
