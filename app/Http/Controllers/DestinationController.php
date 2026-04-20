@@ -23,8 +23,8 @@ class DestinationController extends Controller
 
     public function show($id)
     {
-        $destinations = Destination::findOrFail($id);
-        return view('pages.destinations.detaildestinasi', compact('destinations'));
+        $destination = Destination::findOrFail($id);
+        return view('pages.destinations.detaildestinasi', compact('destination'));
     }
 
     public function create()
@@ -86,10 +86,10 @@ class DestinationController extends Controller
             'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg',
         ]);
     
-        $destination = Destination::find($id);
-        if ($destination) {
-            if ($destination->image && $request->hasFile('image')) {
-                Storage::disk('public')->delete('images/' . $destination->image);
+        $destinations = Destination::find($id);
+        if ($destinations) {
+            if ($destinations->image && $request->hasFile('image')) {
+                Storage::disk('public')->delete('images/' . $destinations->image);
             }
 
             if ($request->hasFile('image')) {
@@ -97,7 +97,7 @@ class DestinationController extends Controller
                 $validated['image'] = basename($imagePath);
             }
         
-            $destination->update($validated);
+            $destinations->update($validated);
             return redirect('/destinations')->with('success', 'Destination updated successfully.');
         } else {
             return redirect('/destinations')->with('error', 'Destination not found.');

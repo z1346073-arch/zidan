@@ -6,6 +6,22 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Destination;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttractionController;
+use Illuminate\Auth\Events\Verified;
+
+require __DIR__.'/auth.php';
+
+Route::get(uri: "/dashboard", action: function () {
+    return redirect()->route( route: 'destinations.index');
+})->middleware( middleware: ['auth', 'verified'])->name( name: 'dashboard');
+
+
+
+
+
+
+
+
+
 
 Route::get('/', function () {
     return view(view: 'welcome');
@@ -64,7 +80,7 @@ Route::get(uri: "/detaildestinations/{id}", action: function ($id) {
 
 
 
-Route::prefix('destinations')->name('destinations.')->group(function () {
+Route::prefix('destinations')->name('destinations.')->middleware(['auth'])->group(function () {
     Route::get("/", [DestinationController::class, 'index'])->name('index');
     Route::get("/create", [DestinationController::class, 'create'])->name('create');
     Route::get("/{id}", [DestinationController::class, 'show'])->name('show');
@@ -76,7 +92,7 @@ Route::prefix('destinations')->name('destinations.')->group(function () {
 });
 
 
-Route::prefix("/users")->name('users.')->group(function () {
+Route::prefix("/users")->name('users.')->middleware('auth')->group(function () {
     Route::get("/", [UserController::class, 'index'])->name('index');
     Route::get("/create", [UserController::class, 'create'])->name('create');
     Route::get("/{id}", [UserController::class, 'show'])->name('show');
@@ -107,6 +123,6 @@ Route::resource( name: 'attractions', controller: \App\Http\Controllers\Attracti
 
 Route::resource(name: 'reviews', controller: \App\Http\Controllers\ReviewController::class);
 
-return view('reviews.createreview', compact('attractions'));
+
 
 
